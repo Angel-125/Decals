@@ -1,4 +1,12 @@
-Wild Blue Decals
+Wild Blue Decals - Decorate your craft with decals!
+
+This mod gives you several simple parts that let you add decals to your spacecraft. Simply select a desired type, such as Decal (Horizontal) or Decal (Vertical), use the part variant to change its size, and then change the decal. It uses the stock flag selector to select the desired decal.
+
+To add more decals:
+1. In your favorite paint program, create a texture that is 256 by 160 pixels. 256 by 160 is the standard flag format. For Wide format use 512 by 160.
+2. Add what you like to the decal.
+3. Save your image in your GameData/Flags folder (Create a Flags folder under GameData if needed).
+4. Restart KSP.
 
 ---INSTALLATION---
 

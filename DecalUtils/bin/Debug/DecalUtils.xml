@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DecalUtils</name>
+    </assembly>
+    <members>
+        <member name="T:DecalUtils.WBIDecal">
+            <summary>
+            This was originally a name-tag module for changing the names of the Heisenberg airships. Now it's adapted for decals in general.
+            </summary>
+        </member>
+        <member name="F:DecalUtils.WBIDecal.decalURL">
+            <summary>
+            URL to the image that's displayed by the decal.
+            </summary>
+        </member>
+        <member name="F:DecalUtils.WBIDecal.isVisible">
+            <summary>
+            Flag to indicate whether or not the decal is visible
+            </summary>
+        </member>
+        <member name="F:DecalUtils.WBIDecal.alwaysVisible">
+            <summary>
+            Override flag to ensure that the decal is always visible.
+            </summary>
+        </member>
+        <member name="F:DecalUtils.WBIDecal.updateSymmetry">
+            <summary>
+            Flag to indicate if the decal updates symmetry parts
+            </summary>
+        </member>
+        <member name="F:DecalUtils.WBIDecal.toggleDecalName">
+            <summary>
+            GUI name for button that toggles decal visibility
+            </summary>
+        </member>
+        <member name="F:DecalUtils.WBIDecal.selectDecalName">
+            <summary>
+             GUI name for button that selects the decal.
+            </summary>
+        </member>
+        <member name="F:DecalUtils.WBIDecal.decalTransforms">
+            <summary>
+            List of transforms that will be changed by the decal. Separate names by semicolon
+            </summary>
+        </member>
+        <member name="M:DecalUtils.WBIDecal.ToggleDecal">
+            <summary>
+            Toggles visibility of the decal.
+            </summary>
+        </member>
+        <member name="M:DecalUtils.WBIDecal.SelectDecal">
+            <summary>
+            Changes the decal
+            </summary>
+        </member>
+        <member name="M:DecalUtils.WBIDecal.onFlagSelected(FlagBrowser.FlagEntry)">
+            <summary>
+            Private event handler to respond to flag selection.
+            </summary>
+            <param name="selected">The selected texture</param>
+        </member>
+        <member name="M:DecalUtils.WBIDecal.updateSymmetryParts">
+            <summary>
+            Updates symmetry parts with the new decal
+            </summary>
+        </member>
+        <member name="M:DecalUtils.WBIDecal.ChangeDecal">
+            <summary>
+            Changes the decal on all named transforms.
+            </summary>
+        </member>
+    </members>
+</doc>
