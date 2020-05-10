@@ -75,6 +75,12 @@ namespace DecalUtils
             Events["SelectDecal"].guiName = selectDecalName;
 
             ChangeDecal();
+            GameEvents.onEditorVariantApplied.Add(this.onEditorVariantApplied);
+        }
+
+        public void OnDestroy()
+        {
+            GameEvents.onEditorVariantApplied.Remove(this.onEditorVariantApplied);
         }
 
         /// <summary>
@@ -85,6 +91,7 @@ namespace DecalUtils
         {
             isVisible = !isVisible;
             ChangeDecal();
+
             updateSymmetryParts();
         }
 
@@ -107,13 +114,11 @@ namespace DecalUtils
         {
             decalURL = selected.textureInfo.name;
             ChangeDecal();
+
             updateSymmetryParts();
         }
 
-        /// <summary>
-        /// Updates symmetry parts with the new decal
-        /// </summary>
-        protected void updateSymmetryParts()
+        public void updateSymmetryParts()
         {
             if (updateSymmetry)
             {
@@ -122,8 +127,17 @@ namespace DecalUtils
                 {
                     nameTag = symmetryPart.GetComponent<WBIDecal>();
                     nameTag.decalURL = this.decalURL;
+                    nameTag.isVisible = this.isVisible;
                     nameTag.ChangeDecal();
                 }
+            }
+        }
+
+        private void onEditorVariantApplied(Part parModified, PartVariant partVariant)
+        {
+            if (parModified == this.part)
+            {
+                ChangeDecal();
             }
         }
 
@@ -157,7 +171,6 @@ namespace DecalUtils
                     if (string.IsNullOrEmpty(decalURL) == false)
                     {
                         rendererMaterial = target.GetComponent<Renderer>();
-
                         textureForDecal = GameDatabase.Instance.GetTexture(decalURL, false);
                         if (textureForDecal != null)
                             rendererMaterial.material.SetTexture("_MainTex", textureForDecal);
@@ -165,6 +178,5 @@ namespace DecalUtils
                 }
             }
         }
-
     }
 }

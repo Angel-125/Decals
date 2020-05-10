@@ -14,6 +14,9 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 --RELEASE NOTES---
 
+0.5.0
+- Added WBIMeshSwitcher for non-symmetry mesh variants.
+
 0.2.0 Initial Alpha Pre-Release
 
 ---ACKNOWLEDGEMENTS---

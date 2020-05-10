@@ -60,14 +60,35 @@
             </summary>
             <param name="selected">The selected texture</param>
         </member>
-        <member name="M:DecalUtils.WBIDecal.updateSymmetryParts">
-            <summary>
-            Updates symmetry parts with the new decal
-            </summary>
-        </member>
         <member name="M:DecalUtils.WBIDecal.ChangeDecal">
             <summary>
             Changes the decal on all named transforms.
+            </summary>
+        </member>
+        <member name="F:DecalUtils.WBIMeshSwitcher.partVariants">
+            <summary>
+            List of part variants.
+            </summary>
+        </member>
+        <member name="F:DecalUtils.WBIMeshSwitcher.selectedIndex">
+            <summary>
+            Currently selected index from the part variant list.
+            </summary>
+        </member>
+        <member name="M:DecalUtils.WBIMeshSwitcher.loadVariants">
+            <summary>
+            Loads all the part variants from the part's config node.
+            </summary>
+        </member>
+        <member name="M:DecalUtils.WBIMeshSwitcher.loadVariants(ConfigNode)">
+            <summary>
+            Loads all the part variants from the part config node.
+            </summary>
+            <param name="node">The node to search for VARIANT nodes.</param>
+        </member>
+        <member name="M:DecalUtils.WBIMeshSwitcher.updateMeshes">
+            <summary>
+            Updates the meshes, ignoring symmetry.
             </summary>
         </member>
     </members>
