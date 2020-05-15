@@ -40,7 +40,11 @@ namespace DecalUtils
         {
             base.OnAwake();
 
-            this.part.baseVariant = new PartVariant("Base", "Base", this.part.attachNodes, this.part.srfAttachNode);
+            //This is only supported in KSP 1.9. To support surface attachment variants, be sure to define a NODES config node with node_attach.
+            //this.part.baseVariant = new PartVariant("Base", "Base", this.part.attachNodes, this.part.srfAttachNode);
+
+            //We'll use what's in KSP 1.8.1 instead...
+            this.part.baseVariant = new PartVariant("Base", "Base", this.part.attachNodes);
         }
 
         public override void OnLoad(ConfigNode node)
@@ -54,6 +58,8 @@ namespace DecalUtils
         {
             base.OnStart(state);
             loadVariants();
+            if (selectedIndex < 0)
+                selectedIndex = 0;
             updateMeshes();
 
             if (!HighLogic.LoadedSceneIsEditor)
@@ -132,7 +138,7 @@ namespace DecalUtils
         /// </summary>
         private void updateMeshes()
         {
-            if (selectedIndex >= 0)
+            if (selectedIndex >= 0 && partVariants.Count > 0)
             {
                 PartVariant selectedVariant = partVariants[selectedIndex];
                 Material[] materials = new Material[] { };

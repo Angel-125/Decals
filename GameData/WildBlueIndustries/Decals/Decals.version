@@ -1,7 +1,7 @@
 {
     "NAME":"Wild Blue Decals",
     "URL":"https://raw.githubusercontent.com/Angel-125/Decals/master/GameData/WildBlueIndustries/Decals/Decals.version",
-    "DOWNLOAD":"https://github.com/Angel-125/Buffalo/releases",
+    "DOWNLOAD":"https://github.com/Angel-125/Decals/releases",
     "GITHUB":
     {
         "USERNAME":"Angel-125",
@@ -12,7 +12,7 @@
     {
 	"MAJOR":0,
 	"MINOR":5,
-	"PATCH":0
+	"PATCH":1
     },
     "KSP_VERSION_MIN":
     {
