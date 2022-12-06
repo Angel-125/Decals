@@ -14,6 +14,9 @@ Copy the contents of the mod's GameData directory into your GameData folder.
 
 --RELEASE NOTES---
 
+0.5.2
+- Fixed issue with WBIMeshSwitcher not working with KSP 1.12.
+
 0.5.1
 - Compatibility fix for KSP 1.8.1
 

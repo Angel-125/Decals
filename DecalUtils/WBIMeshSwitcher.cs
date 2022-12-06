@@ -6,7 +6,7 @@ using UnityEngine;
 using KSP.IO;
 
 /*
-Source code copyright 2020, by Michael Billard (Angel-125)
+Source code copyright 2021, by Michael Billard (Angel-125)
 License: GPLV3
 
 Wild Blue Industries is trademarked by Michael Billard and may be used for non-commercial purposes. All other rights reserved.
@@ -33,6 +33,10 @@ namespace DecalUtils
         [UI_VariantSelector(affectSymCounterparts = UI_Scene.None, controlEnabled = true, scene = UI_Scene.Editor)]
         [KSPField(isPersistant = true)]
         private int selectedIndex;
+        #endregion
+
+        #region Housekeeping
+        List<ConfigNode> variantNodes;
         #endregion
 
         #region Overrides
@@ -116,20 +120,19 @@ namespace DecalUtils
         /// <param name="node">The node to search for VARIANT nodes.</param>
         private void loadVariants(ConfigNode node)
         {
-            if (partVariants == null && node.HasNode("VARIANT"))
-            {
-                partVariants = new List<PartVariant>();
-                ConfigNode[] variantNodes = node.GetNodes("VARIANT");
-                ConfigNode variantNode;
-                PartVariant partVariant;
+            variantNodes = new List<ConfigNode>();
+            partVariants = new List<PartVariant>();
+            ConfigNode[] nodes = node.GetNodes("VARIANT");
+            ConfigNode variantNode;
+            PartVariant partVariant;
 
-                for (int index = 0; index < variantNodes.Length; index++)
-                {
-                    variantNode = variantNodes[index];
-                    partVariant = new PartVariant(this.part.baseVariant);
-                    partVariant.Load(variantNode);
-                    partVariants.Add(partVariant);
-                }
+            for (int index = 0; index < nodes.Length; index++)
+            {
+                variantNodes.Add(nodes[index]);
+                variantNode = nodes[index];
+                partVariant = new PartVariant(this.part.baseVariant);
+                partVariant.Load(variantNode);
+                partVariants.Add(partVariant);
             }
         }
 
@@ -141,9 +144,44 @@ namespace DecalUtils
             if (selectedIndex >= 0 && partVariants.Count > 0)
             {
                 PartVariant selectedVariant = partVariants[selectedIndex];
-                Material[] materials = new Material[] { };
+                ConfigNode node = variantNodes[selectedIndex];
 
-                ModulePartVariants.ApplyVariant(this.part, this.part.transform, selectedVariant, materials, false);
+                if (!node.HasNode("GAMEOBJECTS"))
+                    return;
+
+                Dictionary<string, bool> activeMeshes = new Dictionary<string, bool>();
+                string meshName;
+                bool isEnabled = false;
+                ConfigNode objectNode = node.GetNode("GAMEOBJECTS");
+                int count = objectNode.values.Count;
+                for (int index = 0; index < count; index++)
+                {
+                    meshName = objectNode.values[index].name;
+
+                    bool.TryParse(objectNode.values[index].value, out isEnabled);
+
+                    activeMeshes.Add(meshName, isEnabled);
+                }
+
+                string[] keys = activeMeshes.Keys.ToArray();
+                Transform transform;
+                Collider collider = null;
+                for (int index = 0; index < keys.Length; index++)
+                {
+                    meshName = keys[index];
+                    transform = part.FindModelTransform(meshName);
+                    if (transform == null)
+                    {
+                        Debug.Log("[WBIMeshSwitcher] - cannot find a transform named " + meshName);
+                        continue;
+                    }
+
+                    transform.gameObject.SetActive(activeMeshes[meshName]);
+
+                    collider = transform.gameObject.GetComponent<Collider>();
+                    if (collider != null)
+                        collider.enabled = activeMeshes[meshName];
+                }
             }
         }
         #endregion
