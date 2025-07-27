@@ -6,7 +6,7 @@ using UnityEngine;
 using KSP.IO;
 
 /*
-Source code copyright 2020, by Michael Billard (Angel-125)
+Source code copyright 2021, by Michael Billard (Angel-125)
 License: GPLV3
 
 Wild Blue Industries is trademarked by Michael Billard and may be used for non-commercial purposes. All other rights reserved.
@@ -141,10 +141,22 @@ namespace DecalUtils
             if (selectedIndex >= 0 && partVariants.Count > 0)
             {
                 PartVariant selectedVariant = partVariants[selectedIndex];
-                Material[] materials = new Material[] { };
-
-                ModulePartVariants.ApplyVariant(this.part, this.part.transform, selectedVariant, materials, false);
+                int count = selectedVariant.InfoGameObjects.Count;
+                string transformName;
+                Transform transform;
+                for (int index = 0; index < count; index++)
+                {
+                    transformName = selectedVariant.InfoGameObjects[index].Name;
+                    transform = part.FindModelTransform(transformName);
+                    if (transform != null)
+                    {
+                        transform.gameObject.SetActive(selectedVariant.InfoGameObjects[index].Status);
+                    }
+                }
             }
+
+            // Update WBIDecal
+
         }
         #endregion
     }
