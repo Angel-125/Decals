@@ -35,6 +35,10 @@ namespace DecalUtils
         private int selectedIndex;
         #endregion
 
+        #region Housekeeping
+        List<ConfigNode> variantNodes;
+        #endregion
+
         #region Overrides
         public override void OnAwake()
         {
@@ -116,20 +120,19 @@ namespace DecalUtils
         /// <param name="node">The node to search for VARIANT nodes.</param>
         private void loadVariants(ConfigNode node)
         {
-            if (partVariants == null && node.HasNode("VARIANT"))
-            {
-                partVariants = new List<PartVariant>();
-                ConfigNode[] variantNodes = node.GetNodes("VARIANT");
-                ConfigNode variantNode;
-                PartVariant partVariant;
+            variantNodes = new List<ConfigNode>();
+            partVariants = new List<PartVariant>();
+            ConfigNode[] nodes = node.GetNodes("VARIANT");
+            ConfigNode variantNode;
+            PartVariant partVariant;
 
-                for (int index = 0; index < variantNodes.Length; index++)
-                {
-                    variantNode = variantNodes[index];
-                    partVariant = new PartVariant(this.part.baseVariant);
-                    partVariant.Load(variantNode);
-                    partVariants.Add(partVariant);
-                }
+            for (int index = 0; index < nodes.Length; index++)
+            {
+                variantNodes.Add(nodes[index]);
+                variantNode = nodes[index];
+                partVariant = new PartVariant(this.part.baseVariant);
+                partVariant.Load(variantNode);
+                partVariants.Add(partVariant);
             }
         }
 
@@ -152,11 +155,7 @@ namespace DecalUtils
                     {
                         transform.gameObject.SetActive(selectedVariant.InfoGameObjects[index].Status);
                     }
-                }
             }
-
-            // Update WBIDecal
-
         }
         #endregion
     }
